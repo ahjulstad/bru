@@ -34,7 +34,9 @@
 		"vite-plugin-devtools-json": "^1.0.0"
 	},
 	"dependencies": {
+		"@sveltejs/adapter-vercel": "^6.2.0",
 		"geojson": "^0.5.0",
+		"graphql-request": "^7.4.0",
 		"leaflet": "^1.9.4",
 		"p-memoize": "^8.0.0",
 		"sveaflet": "^0.1.4"

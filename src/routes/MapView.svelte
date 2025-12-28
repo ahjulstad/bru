@@ -18,7 +18,7 @@
 	<Map
 		options={{
 			center: [59.0546216, 5.6626464],
-			zoom: 9.5,
+			zoom: 10.5,
 			fadeAnimation: false
 		}}
 	>
