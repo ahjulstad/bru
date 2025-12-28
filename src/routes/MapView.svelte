@@ -16,6 +16,7 @@
 
 	let images: string[] = $state([]);
 	let imagelength = $state(0);
+	let timestamps: string[] = $state([]);
 	let aFrame = $state(0);
 	let bFrame = $state(1);
 	let showb = $state(false);
@@ -26,6 +27,13 @@
 			(res) => res.json()
 		);
 		images = overview.times.map((element: any) => element.tiles.webp);
+		timestamps = overview.times.map((element: any) =>
+			new Date(Date.parse(element.time)).toLocaleString(undefined, {
+				hour: '2-digit',
+				minute: '2-digit',
+				hour12: false
+			})
+		);
 		imagelength = images.length;
 	});
 
@@ -55,7 +63,7 @@
 	<Map
 		options={{
 			center: [59.0546216, 5.6626464],
-			zoom: 9.3,
+			zoom: 9,
 			fadeAnimation: false
 		}}
 	>
@@ -83,11 +91,17 @@
 		{/await}
 	</Map>
 </div>
+<div>{timestamps[aFrame]}</div>
 
 <style>
 	:global(.radar-layer),
 	:global(.radar-layer img) {
 		mix-blend-mode: screen;
-		transition: opacity 0.3s ease-in-out !important;
+		transition: opacity 0.2s ease-in-out !important;
+	}
+	:global(.radar-layer img) {
+		image-rendering: pixelated;
+		-webkit-backface-visibility: hidden;
+		backface-visibility: hidden;
 	}
 </style>
