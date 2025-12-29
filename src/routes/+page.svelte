@@ -24,7 +24,7 @@
 			class="absolute top-3/4 left-4 z-1000 max-w-xs -translate-y-1/2 rounded-lg bg-white p-1 shadow-lg"
 		>
 			<div class="text-xs">Sokn</div>
-			{#each busdata.sokn || [] as departure}
+			{#each busdata.sokn as departure}
 				<div class="text-sm">
 					{departure}
 				</div>
@@ -32,7 +32,7 @@
 			{#if busdata.brukai && busdata.brukai.length > 0}
 				<hr class="my-2" />
 				<div class="text-xs">Bru kai</div>
-				{#each busdata.brukai || [] as departure}
+				{#each busdata.brukai as departure}
 					<div class="text-sm">
 						{departure}
 					</div>
