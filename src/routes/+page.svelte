@@ -57,8 +57,13 @@
 	<p>
 		Kartdata fra <a href="https://www.openstreetmap.org/#map=4/65.40/17.86" class="text-blue-600"
 			>OpenStreetMap</a
-		>. Nedbørsradar fra <a href="https://www.yr.no/" class="text-blue-600">Yr</a>. Vegmeldinger fra
-		<a href="https://www.vegvesen.no/" class="text-blue-600">Statens vegvesen</a>. Bussruter fra
-		<a href="https://entur.no/" class="text-blue-600">Entur</a>.
+		>. Nedbørsradar fra <a href="https://beta.yr-maps.met.no/" class="text-blue-600">Yr</a>.
+		Vegmeldinger fra
+		<a
+			href="https://www.vegvesen.no/fag/teknologi/apne-data/et-utvalg-apne-data/ogc-karttjenester/kartlag/"
+			class="text-blue-600">Statens vegvesen</a
+		>. Bussruter fra
+		<a href="https://developer.entur.org/" class="text-blue-600">Entur</a>. Sausa sammen av
+		<a href="https://bsky.app/profile/ahj77.bsky.social" class="text-blue-600">Åsmund</a>.
 	</p>
 </div>
