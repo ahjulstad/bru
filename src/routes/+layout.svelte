@@ -1,7 +1,7 @@
 <script lang="ts">
 	import './layout.css';
 	// import 'leaflet/dist/leaflet.css';
-	import favicon from '$lib/assets/favicon.svg';
+	import favicon from '$lib/assets/favicon.png';
 
 	let { children } = $props();
 </script>
