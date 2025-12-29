@@ -20,6 +20,7 @@
 	let aFrame = $state(0);
 	let bFrame = $state(1);
 	let showb = $state(false);
+	let counter = $state(0);
 
 	onMount(async () => {
 		// Get list of animation map images
@@ -41,11 +42,11 @@
 		if (imagelength === 0) return;
 
 		const id = setInterval(() => {
-			// Toggle which layer is visible - crossfade effect
+			counter += 1;
 			showb = !showb;
-
-			// Update the hidden layer AFTER the transition starts
-			// so the visible layer doesn't jump to a new image
+			if (counter >= 6) {
+				clearInterval(id);
+			}
 			setTimeout(() => {
 				if (showb) {
 					aFrame = (bFrame + 1) % imagelength;
