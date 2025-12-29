@@ -12,7 +12,9 @@
 
 <div class="relative w-full overflow-hidden">
 	{#if MapView}
-		{#await MapView then { default: Map }}
+		{#await MapView}
+			<div class="h-[80vh] w-full">Laster kart...</div>
+		{:then { default: Map }}
 			<Map {roadevents} />
 		{/await}
 	{/if}

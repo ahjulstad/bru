@@ -60,47 +60,47 @@
 	});
 </script>
 
-<div style="width:100%;height:80vh;">
-	<Map
-		options={{
-			center: [59.0546216, 5.6626464],
-			zoom: 9,
-			fadeAnimation: false
-		}}
-	>
-		<TileLayer url={'https://tile.openstreetmap.org/{z}/{x}/{y}.png'} />
-		{#if imagelength > 0}
-			<TileLayer
-				url={images[aFrame]}
-				opacity={showb ? 0 : 1}
-				options={{
-					className: 'radar-layer',
-					maxNativeZoom: 6
-				}}
-			/>
-			<TileLayer
-				url={images[bFrame]}
-				opacity={showb ? 1 : 0}
-				options={{
-					className: 'radar-layer',
-					maxNativeZoom: 6
-				}}
-			/>
-		{/if}
-		{#await roadevents then data}
-			<GeoJSON json={data} options={{ onEachFeature }} />
-		{/await}
-	</Map>
+<div>
+	<div class="h-[80vh] w-full">
+		<Map
+			options={{
+				center: [59.0546216, 5.6626464],
+				zoom: 9,
+				fadeAnimation: false
+			}}
+		>
+			<TileLayer url={'https://tile.openstreetmap.org/{z}/{x}/{y}.png'} />
+			{#if imagelength > 0}
+				<TileLayer
+					url={images[aFrame]}
+					opacity={showb ? 0 : 1}
+					options={{
+						className: 'radar-layer',
+						maxNativeZoom: 6
+					}}
+				/>
+				<TileLayer
+					url={images[bFrame]}
+					opacity={showb ? 1 : 0}
+					options={{
+						className: 'radar-layer',
+						maxNativeZoom: 6
+					}}
+				/>
+			{/if}
+			{#await roadevents then data}
+				<GeoJSON json={data} options={{ onEachFeature }} />
+			{/await}
+		</Map>
+	</div>
+	<div class="absolute bottom-5 left-4 z-800">{timestamps[aFrame]}</div>
 </div>
-<div>{timestamps[aFrame]}</div>
 
 <style>
 	:global(.radar-layer),
 	:global(.radar-layer img) {
 		mix-blend-mode: screen;
 		transition: opacity 0.2s ease-in-out !important;
-	}
-	:global(.radar-layer img) {
 		image-rendering: pixelated;
 		-webkit-backface-visibility: hidden;
 		backface-visibility: hidden;
