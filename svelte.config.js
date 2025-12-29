@@ -15,8 +15,7 @@ const config = {
 		experimental: {
 			remoteFunctions: true
 		}
-	}
-	,
+	},
 	compilerOptions: {
 		experimental: {
 			async: true
