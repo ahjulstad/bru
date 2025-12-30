@@ -10,6 +10,10 @@
 	let { data } = $props();
 </script>
 
+<svelte:head>
+	<title>Sokn buss</title>
+</svelte:head>
+
 <div class="relative w-full overflow-hidden">
 	{#if MapView}
 		{#await MapView}
@@ -18,6 +22,12 @@
 			<Map {roadevents} />
 		{/await}
 	{/if}
+
+	<div class="absolute top-10/12 right-4 z-1000 rounded-lg bg-white p-1 text-xs shadow-lg">
+		<a href="https://www.vegvesen.no/trafikk/hvaskjer?lat=59.0788&lng=5.65784&zoom=10"
+			>Vegvesen trafikk</a
+		>
+	</div>
 
 	{#await busstopdata then busdata}
 		<div
