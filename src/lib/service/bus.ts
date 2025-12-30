@@ -7,7 +7,7 @@ const BRUKAI = 'NSR:StopPlace:28637';
 const MORTAVIKA = 'NSR:StopPlace:58653';
 
 const gqlClient = new GraphQLClient(GRAPHQL_URL, {
-	headers: () => ({})
+	headers: () => ({ 'ET-Client-Name': 'https://bsky.app/profile/ahj77.bsky.social' })
 });
 
 const Query = gql`
