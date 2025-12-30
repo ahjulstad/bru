@@ -23,30 +23,38 @@
 		<div
 			class="absolute top-3/4 left-4 z-1000 max-w-xs -translate-y-1/2 rounded-lg bg-white p-1 shadow-lg"
 		>
-			<div class="text-xs">Sokn</div>
-			{#each busdata.sokn as departure}
-				<div class="text-sm">
-					{departure}
-				</div>
-			{/each}
-			{#if busdata.brukai && busdata.brukai.length > 0}
-				<hr class="my-2" />
-				<div class="text-xs">Bru kai</div>
-				{#each busdata.brukai as departure}
+			<a href="https://reise.kolumbus.no/no/departures?fromId=NSR:StopPlace:26770">
+				<div class="text-xs">Sokn</div>
+				{#each busdata.sokn as departure}
 					<div class="text-sm">
 						{departure}
 					</div>
 				{/each}
+			</a>
+			{#if busdata.brukai && busdata.brukai.length > 0}
+				<a href="https://reise.kolumbus.no/no/departures?fromId=NSR:StopPlace:28637">
+					<hr class="my-2" />
+					<div class="text-xs">Bru kai</div>
+					{#each busdata.brukai as departure}
+						<div class="text-sm">
+							{departure}
+						</div>
+					{/each}
+				</a>
 			{/if}
 		</div>
 		<div class="absolute top-4 left-1/3 z-1000 rounded-lg bg-white p-1">
 			{#if busdata.mortavika && busdata.mortavika.length > 0}
-				<div class="text-xs">Mortavika</div>
-				{#each busdata.mortavika || [] as departure}
-					<div class="text-sm">
-						{departure}
-					</div>
-				{/each}
+				<a
+					href="https://www.fjord1.no/ruteoversikt/Rogaland/mortavika-arsvaagen?from=001311421668&to=001311453652"
+				>
+					<div class="text-xs">Mortavika</div>
+					{#each busdata.mortavika || [] as departure}
+						<div class="text-sm">
+							{departure}
+						</div>
+					{/each}
+				</a>
 			{/if}
 		</div>
 		<!-- <pre>{JSON.stringify(busdata, null, 2)}</pre> -->
