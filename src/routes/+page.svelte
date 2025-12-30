@@ -2,12 +2,19 @@
 	import { browser } from '$app/environment';
 	import { fetchRoadEvents } from '$lib/service/roadevents';
 	import { fetchBusStopData } from '$lib/service/bus';
+	import { subscribeVehiclePositions } from '$lib/service/vehiclepositions';
 
 	const roadevents = fetchRoadEvents();
 	const busstopdata = fetchBusStopData();
 	const MapView = browser ? import('./MapView.svelte') : null;
 
 	let { data } = $props();
+
+	// if (browser) {
+	// 	subscribeVehiclePositions((event) => {
+	// 		console.log('Vehicle position event:', event);
+	// 	});
+	// }
 </script>
 
 <svelte:head>

@@ -3,6 +3,7 @@
 	import type { FeatureCollection, Feature } from 'geojson';
 	import type { Layer } from 'leaflet';
 	import RainOverlay from './RainOverlay.svelte';
+	import VehicleOverlay from './VehicleOverlay.svelte';
 
 	let { roadevents }: { roadevents: Promise<FeatureCollection> } = $props();
 
@@ -22,11 +23,12 @@
 		<Map
 			options={{
 				center: [59.0546216, 5.6626464],
-				zoom: 9,
+				zoom: 10.9,
 				fadeAnimation: false
 			}}
 		>
 			<TileLayer url={'https://tile.openstreetmap.org/{z}/{x}/{y}.png'} />
+			<VehicleOverlay />
 			<RainOverlay bind:timestamp />
 			{#await roadevents then data}
 				<GeoJSON json={data} options={{ onEachFeature }} />
@@ -35,4 +37,3 @@
 	</div>
 	<div class="absolute bottom-5 left-4 z-800">{timestamp}</div>
 </div>
-
