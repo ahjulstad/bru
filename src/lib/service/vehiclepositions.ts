@@ -9,10 +9,10 @@ const client = createClient({
 });
 
 const Query = gql`
-subscription {
+subscription VehiclePositions($lineName: String!) {
 	vehicles(
 			codespaceId: "KOL"
-			lineName: "10"
+			lineName: $lineName
 			boundingBox: { minLat: 58.97, minLon: 5.39, maxLat: 59.16, maxLon: 6.07 }
 	) {
 		line {
@@ -59,29 +59,40 @@ export interface VehiclePosition {
 	heading: number;
 }
 
-export const subscribeVehiclePositions = (callback: (data: VehiclePosition) => void) => {
-	(async () => {
-		console.log('Subscribing');
-		const subscription = client.iterate({ query: Query });
-		let counter = 0;
-		for await (const event of subscription) {
-			console.log('Received event:', event);
-			if (!event.data)
-				continue;
-			for (const vehicle of event.data.vehicles as VehicleFromAPI[]) {
-				const vp: VehiclePosition = {
-					id: vehicle.serviceJourney.id,
-					lineName: vehicle.line.lineName,
-					latitude: vehicle.location.latitude,
-					longitude: vehicle.location.longitude,
-					speed: vehicle.speed,
-					heading: vehicle.heading
-				};
-				callback(vp);
-			}
-			counter++;
-			if (counter > 1000)
-				break;
-		}
-	})();
+function mapvehicle(apiVehicle: VehicleFromAPI): VehiclePosition {
+	return {
+		id: apiVehicle.serviceJourney.id,
+		lineName: apiVehicle.line.lineName,
+		latitude: apiVehicle.location.latitude,
+		longitude: apiVehicle.location.longitude,
+		speed: apiVehicle.speed,
+		heading: apiVehicle.heading
+	};
 }
+
+export const subscribeVehiclePositions = (lineName: string, callback: (data: VehiclePosition[]) => void) => {
+	let active = true;
+
+	const unsubscribe = client.subscribe(
+		{ query: Query, variables: { lineName } },
+		{
+			next: ({ data }) => {
+				if (!active || !data)
+					return;
+
+				const vehicles = (data.vehicles ?? []) as VehicleFromAPI[];
+				const vehiclePositions = vehicles.map(mapvehicle);
+				callback(vehiclePositions);
+			},
+			error: (error) => console.error('Vehicle subscription error', error),
+			complete: () => console.log('Vehicle subscription completed')
+		}
+	);
+
+	return () => {
+		active = false;
+		unsubscribe();
+	};
+
+};
+

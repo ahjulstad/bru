@@ -9,12 +9,6 @@
 	const MapView = browser ? import('./MapView.svelte') : null;
 
 	let { data } = $props();
-
-	// if (browser) {
-	// 	subscribeVehiclePositions((event) => {
-	// 		console.log('Vehicle position event:', event);
-	// 	});
-	// }
 </script>
 
 <svelte:head>

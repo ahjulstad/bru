@@ -5,9 +5,21 @@ import { subscribeVehiclePositions } from '$lib/service/vehiclepositions';
 export const vehiclePositions = readable<Map<string, VehiclePosition>>(new Map(), (set) => {
     const vehicleMap = new Map<string, VehiclePosition>();
 
-    subscribeVehiclePositions((vp) => {
-        vehicleMap.set(vp.id, vp);
-        set(new Map(vehicleMap));
+    const lineNames = ['10', '34'];
+
+    lineNames.forEach((lineName) => {
+        const unsubscribe = subscribeVehiclePositions(lineName, (vps: VehiclePosition[]) => {
+            vps.forEach((vp) => {
+                vehicleMap.set(vp.id, vp);
+            });
+            set(new Map(vehicleMap));
+        });
+
+        return () => {
+            // vehicleMap.clear();
+            // set(new Map());
+            unsubscribe();
+        };
     })
 
 });

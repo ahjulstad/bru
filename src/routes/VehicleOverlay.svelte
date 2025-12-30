@@ -1,20 +1,13 @@
 <script lang="ts">
 	import { vehiclePositions } from '$lib/store/vehiclepositionstore';
 	import type { VehiclePosition } from '$lib/store/vehiclepositionstore';
-	import { onMount } from 'svelte';
-	import { CircleMarker, Marker, DivIcon } from 'sveaflet';
-
-	let positions: Map<String, VehiclePosition> = new Map();
-	vehiclePositions.subscribe((v) => {
-		positions = v;
-		console.log('Updated vehicle positions:', positions);
-	});
+	import { Marker, DivIcon } from 'sveaflet';
 </script>
 
 {#each Array.from($vehiclePositions.entries()) as [id, v] (id)}
 	<Marker latLng={[v.latitude, v.longitude]}
 		><DivIcon
-			class="flex h-7 w-7 items-center justify-center rounded-full bg-black p-1 text-sm text-white"
+			class="flex h-7 w-7 items-center justify-center rounded-full border-white bg-black p-1 text-sm text-white"
 		>
 			{v.lineName}
 		</DivIcon></Marker
