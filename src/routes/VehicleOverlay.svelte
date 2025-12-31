@@ -6,10 +6,18 @@
 
 {#each Array.from($vehiclePositions.entries()) as [id, v] (id)}
 	<Marker latLng={[v.latitude, v.longitude]}
-		><DivIcon
-			class="flex h-7 w-7 items-center justify-center rounded-full border-white bg-black p-1 text-sm text-white"
-		>
-			{v.lineName}
+		><DivIcon class="relative flex h-12 w-12 items-center justify-center" iconAnchor={[24, 24]}>
+			<div
+				class="absolute text-4xl"
+				style="top: 50%; left: 50%; transform: translate(-50%, -50%) rotate({v.heading + 180}deg)"
+			>
+				&#8595;
+			</div>
+			<div
+				class="relative z-10 flex h-6 w-6 items-center justify-center rounded-full border-white bg-black/80 p-1 text-sm text-white"
+			>
+				{v.lineName}
+			</div>
 		</DivIcon></Marker
 	>
 {/each}
