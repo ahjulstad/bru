@@ -11,7 +11,7 @@ const gqlClient = new GraphQLClient(GRAPHQL_URL, {
 });
 
 const Query = gql`
-	{
+	query GetStopPlaces($startTime: DateTime) {
 		stopPlaces(ids: ["NSR:StopPlace:26770", "NSR:StopPlace:28637", "NSR:StopPlace:58653"]) {
 			id
 			name
@@ -145,9 +145,10 @@ const Query = gql`
 				}
 			}
 			description
-			estimatedCalls(timeRange: 10800, numberOfDepartures: 5, whiteListedModes: [bus, water]) {
+			estimatedCalls(startTime: $startTime, timeRange: 10800, numberOfDepartures: 5, whiteListedModes: [bus, water]) {
 				aimedDepartureTime
 				expectedDepartureTime
+				actualDepartureTime
 				realtime
 				realtimeState
 				destinationDisplay {
@@ -169,7 +170,11 @@ const Query = gql`
 `;
 
 export const fetchBusStopData = async () => {
-	const data = await gqlClient.request(Query, {});
+	const variables = {
+		// 150 seconds ago to account for possible delays in data updates
+		startTime: new Date(Date.now() - 15000).toISOString()
+	}
+	const data = await gqlClient.request(Query, variables);
 
 	const sokn_data = data.stopPlaces.find((stop: any) => stop.id === SOKN);
 	const brukai_data = data.stopPlaces.find((stop: any) => stop.id === BRUKAI);
@@ -178,6 +183,7 @@ export const fetchBusStopData = async () => {
 	function callLine(call: any) {
 		const expectedDepartureTime = new Date(call.expectedDepartureTime);
 		const aimedDepartureTime = new Date(call.aimedDepartureTime);
+		const actualDepartureText = call.actualDepartureTime ? ' (kjørt)' : '';
 		const cancellation = call.cancellation ? ' (Cancelled)' : '';
 		const displayname =
 			call.serviceJourney.journeyPattern.line.name + ' ' + call.destinationDisplay.frontText;
@@ -186,7 +192,7 @@ export const fetchBusStopData = async () => {
 			minute: '2-digit',
 			hour12: false
 		});
-		return `${timeStr} ${displayname}${cancellation}`;
+		return `${timeStr} ${displayname}${cancellation}${actualDepartureText}`;
 	}
 
 	function callLineMortavika(call: any) {
