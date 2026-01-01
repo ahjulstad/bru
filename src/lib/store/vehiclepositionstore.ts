@@ -5,7 +5,7 @@ import { subscribeVehiclePositions } from '$lib/service/vehiclepositions';
 export const vehiclePositions = readable<Map<string, VehiclePosition>>(new Map(), (set) => {
     const vehicleMap = new Map<string, VehiclePosition>();
 
-    const lineNames = ['10', '34'];
+    const lineNames = ['10', '34', '33', 'N89'];
 
     lineNames.forEach((lineName) => {
         const unsubscribe = subscribeVehiclePositions(lineName, (vps: VehiclePosition[]) => {
