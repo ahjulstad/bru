@@ -214,3 +214,5 @@ export const fetchBusStopData = async () => {
 
 	return { sokn: sokn_rows, brukai: brukai_rows, mortavika: mortavika_rows, data };
 };
+
+export type BusData = Awaited<ReturnType<typeof fetchBusStopData>>;

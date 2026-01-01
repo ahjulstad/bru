@@ -2,11 +2,10 @@
 	import { browser } from '$app/environment';
 	import { fetchRoadEvents } from '$lib/service/roadevents';
 	import { fetchBusStopData } from '$lib/service/bus';
-	import { subscribeVehiclePositions } from '$lib/service/vehiclepositions';
 	import Haik from './Haik.svelte';
+	import { busDataStore } from '$lib/store/busstore';
 
 	const roadevents = fetchRoadEvents();
-	const busstopdata = fetchBusStopData();
 	const MapView = browser ? import('./MapView.svelte') : null;
 
 	let { data } = $props();
@@ -35,7 +34,8 @@
 		<Haik />
 	</div>
 
-	{#await busstopdata then busdata}
+	{#if $busDataStore}
+		{@const busdata = $busDataStore}
 		<div
 			class="absolute top-3/4 left-4 z-1000 max-w-xs -translate-y-1/2 rounded-lg bg-white/50 p-1 shadow-lg"
 		>
@@ -74,7 +74,7 @@
 			{/if}
 		</div>
 		<!-- <pre>{JSON.stringify(busdata, null, 2)}</pre> -->
-	{/await}
+	{/if}
 </div>
 
 <div class="relative text-sm">
