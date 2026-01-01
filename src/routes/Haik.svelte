@@ -14,7 +14,6 @@
 	let room: Room;
 	onMount(() => {
 		room = joinRoom(config, 'main-room');
-		console.log(room.getPeers());
 		room.onPeerJoin((peerId) => {
 			console.log(`Peer joined: ${peerId}`);
 		});
