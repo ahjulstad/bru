@@ -42,6 +42,7 @@
 		"graphql-ws": "^6.0.6",
 		"leaflet": "^1.9.4",
 		"p-memoize": "^8.0.0",
-		"sveaflet": "^0.1.4"
+		"sveaflet": "^0.1.4",
+		"trystero": "^0.22.0"
 	}
 }

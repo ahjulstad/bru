@@ -3,6 +3,7 @@
 	import { fetchRoadEvents } from '$lib/service/roadevents';
 	import { fetchBusStopData } from '$lib/service/bus';
 	import { subscribeVehiclePositions } from '$lib/service/vehiclepositions';
+	import Haik from './Haik.svelte';
 
 	const roadevents = fetchRoadEvents();
 	const busstopdata = fetchBusStopData();
@@ -28,6 +29,10 @@
 		<a href="https://www.vegvesen.no/trafikk/hvaskjer?lat=59.0788&lng=5.65784&zoom=10"
 			>Vegvesen trafikk</a
 		>
+	</div>
+
+	<div class="absolute top-3/4 right-4 z-1000 rounded-lg bg-white/50 p-1 shadow-lg">
+		<Haik />
 	</div>
 
 	{#await busstopdata then busdata}
