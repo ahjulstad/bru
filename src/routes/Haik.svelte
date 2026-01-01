@@ -8,10 +8,18 @@
 		password: 'notsecret-only-here-to-test-it-is-SPA-after-all'
 	};
 
-	const onClick = () => {
-		console.log('Haik button clicked');
-	};
 	let room: Room;
+	let sendHaik: ((data?: any) => void) | undefined;
+
+	const onClick = () => {
+		if (sendHaik) {
+			sendHaik({});
+			console.log('Haik action sent');
+		} else {
+			console.log('Haik not ready yet');
+		}
+	};
+
 	onMount(() => {
 		room = joinRoom(config, 'main-room');
 		room.onPeerJoin((peerId) => {
@@ -19,6 +27,12 @@
 		});
 		room.onPeerLeave((peerId) => {
 			console.log(`Peer left: ${peerId}`);
+		});
+
+		const [send, getHaik] = room.makeAction('haik');
+		sendHaik = send;
+		getHaik(() => {
+			console.log('Haik action received from another peer!');
 		});
 	});
 
