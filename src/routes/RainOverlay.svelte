@@ -38,7 +38,7 @@
 		const id = setInterval(() => {
 			counter += 1;
 			showb = !showb;
-			if (counter >= 6) {
+			if (counter >= 10) {
 				clearInterval(id);
 			}
 			setTimeout(() => {

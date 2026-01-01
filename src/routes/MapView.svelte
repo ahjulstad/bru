@@ -1,11 +1,12 @@
 <script lang="ts">
-	import { Map, TileLayer, GeoJSON } from 'sveaflet';
+	import { Map, TileLayer, GeoJSON, Marker, DivIcon } from 'sveaflet';
 	import type { FeatureCollection, Feature } from 'geojson';
 	import type { Layer } from 'leaflet';
 	import RainOverlay from './RainOverlay.svelte';
 	import VehicleOverlay from './VehicleOverlay.svelte';
 
-	let { roadevents }: { roadevents: Promise<FeatureCollection> } = $props();
+	let { roadevents }: { roadevents: Promise<{ events: any[]; geoJson: FeatureCollection }> } =
+		$props();
 
 	let timestamp = $state('');
 
@@ -15,6 +16,10 @@
 			popupContent += feature.properties.DESCRIPTION;
 		}
 		layer.bindPopup(popupContent);
+	}
+
+	function getBgColorClass(probability: string) {
+		return probability === 'riskOf' ? 'bg-yellow-400/80' : 'bg-red-600/80';
 	}
 </script>
 
@@ -31,7 +36,22 @@
 			<VehicleOverlay />
 			<RainOverlay bind:timestamp />
 			{#await roadevents then data}
-				<GeoJSON json={data} options={{ onEachFeature }} />
+				<GeoJSON json={data.geoJson} options={{ onEachFeature }} />
+				{#each data.events as event}
+					<Marker
+						latLng={[event.coordinatesForDisplay.latitude, event.coordinatesForDisplay.longitude]}
+					>
+						<DivIcon>
+							<div
+								class="w-30 rounded-xl p-2 text-lg text-black {getBgColorClass(
+									event.probabilityOfOccurrence
+								)}"
+							>
+								{event.description}<br />
+							</div>
+						</DivIcon></Marker
+					>
+				{/each}
 			{/await}
 		</Map>
 	</div>
