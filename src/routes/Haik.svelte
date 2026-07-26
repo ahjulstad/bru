@@ -1,10 +1,13 @@
 <script lang="ts">
 	import { onDestroy, onMount } from 'svelte';
-	import { joinRoom } from 'trystero';
+	import { joinRoom } from 'trystero/mqtt';
 	import type { Room } from 'trystero';
 
 	const config = {
 		appId: 'bruhaik-neu4h57fh3kfadgkh73fhw',
+		relayUrls: [
+			'wss://test-user:NotSecret123@ace46297521543609059a27b884d914b.s1.eu.hivemq.cloud:8884/mqtt'
+		],
 		password: 'notsecret-only-here-to-test-it-is-SPA-after-all'
 	};
 
