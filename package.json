@@ -43,6 +43,7 @@
 		"leaflet": "^1.9.4",
 		"p-memoize": "^8.0.0",
 		"sveaflet": "^0.1.5",
-		"trystero": "^0.25.3"
+		"trystero": "^0.25.3",
+		"ws": "^8.21.1"
 	}
 }
