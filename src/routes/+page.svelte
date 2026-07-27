@@ -30,9 +30,9 @@
 		>
 	</div>
 
-	<div class="absolute top-3/4 right-4 z-1000 rounded-lg bg-white/50 p-1 shadow-lg">
+	<!-- <div class="absolute top-3/4 right-4 z-1000 rounded-lg bg-white/50 p-1 shadow-lg">
 		<Haik />
-	</div>
+	</div> -->
 
 	{#if $busDataStore}
 		{@const busdata = $busDataStore}

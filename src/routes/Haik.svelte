@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { onDestroy, onMount } from 'svelte';
-	import { joinRoom } from 'trystero/mqtt';
+	import { joinRoom } from 'trystero';
 	import type { Room } from 'trystero';
 
 	const config = {
